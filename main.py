@@ -4,12 +4,13 @@
 Stdlib only. Writes a deterministic 1024x1024 PNG to
 $MAKEFUN_OUTPUT_DIR/entry.png (or /output/entry.png).
 Layout: newspaper front page. Masthead names the day, six labelled
-story panels cover climate, conflict, justice, politics, economy and
-trade, and a footer strip carries two briefs.
+story panels cover climate, conflict, security, politics, economy
+and sport, and a footer strip carries two briefs.
 
-DRAFT stories: researched on 22 Nov 2026 while the day was still
-running. The story table below is swapped for the full day's news
-after the day ends everywhere (23 Nov 19:00 WIB) before submitting.
+FINAL stories: researched after 22 Nov 2026 ended everywhere
+(23 Nov 19:00 WIB) and cross-checked date by date against
+multiple outlets. Every story pictured happened, or was first
+reported, on Sunday 22 November 2026.
 """
 
 import math
@@ -29,30 +30,39 @@ GREY = (90, 90, 90)
 WHITE = (255, 255, 255)
 
 # tag, accent colour, icon, headline, one-line detail
+# FINAL stories: researched after the day ended everywhere
+# (23 Nov 19:00 WIB) and cross-checked date by date. Every story
+# below happened, or was first reported, on Sunday 22 Nov 2026.
+# Stories that failed the date check were dropped: the Shenzhen
+# summit (19 Nov), the US AI sell-off (20 Nov), the Mexico cartel
+# capture (20-21 Nov), the EU-Indonesia signing (21 Nov), the
+# Bahrain/Hormuz strikes (21 Nov), the Kryvyi Rih strike (20 Nov),
+# the ICJ Myanmar ruling (19 Nov), the Thai court ruling (23 Nov)
+# and the Nigeria boat toll (announced 21 Nov).
 STORIES = [
     ("CLIMATE", (14, 124, 107), "globe",
-     "COP31 TALKS RUN INTO OVERTIME",
-     "Climate summit in Antalya stalls over fossil fuels and funding for poorer nations."),
+     "COP31 COLLAPSES WITHOUT DEAL",
+     "Antalya climate talks end with no pact as fossil fuel language is rejected."),
     ("CONFLICT", (179, 55, 47), "flame",
-     "IRAN STRIKES SITE IN BAHRAIN",
-     "Tehran hits an industrial site - two tankers struck near the Strait of Hormuz."),
-    ("JUSTICE", (91, 74, 138), "shield",
-     "MEXICO CAPTURES CARTEL BOSS",
-     "Troops seize Fausto Isidro Meza Flores in Sinaloa; 11 killed in the raid."),
+     "KYIV FLATS HIT, 14 MISSING",
+     "Russian drone collapses a block in Dymer, and rescuers dig for the missing."),
+    ("SECURITY", (91, 74, 138), "shield",
+     "POLAND: RAPPER TARGETED TWICE",
+     "Poland says Moscow tried to kill Kyivstoner in Poland and Denmark."),
     ("POLITICS", (42, 95, 163), "flags",
-     "TRUMP, XI AND PUTIN MEET",
-     "Leaders hold trilateral talks in Shenzhen and agree nuclear risk discussions."),
+     "NEPAL PM HEADS TO INDIA",
+     "Balen Shah leaves for Delhi for a two-day state visit and talks with Modi."),
     ("ECONOMY", (201, 106, 27), "chart",
-     "AI SELL-OFF HITS US STOCKS",
-     "S&P 500 falls 3.7% into correction as chip shares tumble."),
-    ("TRADE", (62, 122, 52), "deal",
-     "EU AND INDONESIA SIGN DEAL",
-     "Trade pact agreed after ten years of talks between Brussels and Jakarta."),
+     "CHINA EASES MARGIN RULES",
+     "Exchanges cut the minimum margin ratio to 80% from 100% on Nov 30."),
+    ("SPORT", (62, 122, 52), "ball",
+     "ALCARAZ WINS ATP FINALS",
+     "Beats Zverev for his first ATP Finals title in Turin."),
 ]
 
-HEADLINE = "SUMMITS, STRIKES AND A MARKET SLUMP"
+HEADLINE = "COP31 COLLAPSES AS KYIV IS HIT"
 FOOTER_MAIN = "ALL EVENTS REPORTED ON SUNDAY 22 NOVEMBER 2026"
-FOOTER_BRIEFS = "BRIEFS: CIKANDE FACTORY FIRE, 3 DEAD - KRYVYI RIH MISSILE STRIKE, 2 DEAD"
+FOOTER_BRIEFS = "BRIEFS: WEST BANK SETTLERS TORCH 12 CARS - CIKANDE FIRE, 24 BODIES FOUND"
 
 # 5x7 bitmap font, '#' = ink. Only the glyphs the layout uses.
 FONT = {
@@ -232,6 +242,10 @@ def draw_icon(cv, kind, x, y, s, c):
     elif kind == "deal":
         cv.ring(cx - 16, cy, 22, c, 5)
         cv.ring(cx + 16, cy, 22, GOLD, 5)
+        cv.disc(cx, cy, 8, c)
+    elif kind == "ball":
+        cv.ring(cx, cy, s // 2 - 6, c, 5)
+        cv.hline(x + 8, cy, s - 16, c, 3)
         cv.disc(cx, cy, 8, c)
 
 

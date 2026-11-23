@@ -7,8 +7,8 @@
 One image summing up the world's news of Sunday 22 November 2026,
 drawn programmatically by `main.py` (Python standard library only)
 as a newspaper front page: the date in the masthead, six labelled
-story panels across climate, conflict, justice, politics, economy
-and trade, and a footer strip with two briefs.
+story panels across climate, conflict, security, politics, economy
+and sport, and a footer strip with two briefs.
 
 Run it with:
 
